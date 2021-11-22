@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Assets/Tiles/Season_collection.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Player.png" type="Texture" id=2]
@@ -706,12 +706,6 @@ shader = SubResource( 35 )
 [sub_resource type="ViewportTexture" id=37]
 viewport_path = NodePath("DefaultTarget")
 
-[sub_resource type="ViewportTexture" id=38]
-viewport_path = NodePath("HSLTarget")
-
-[sub_resource type="ViewportTexture" id=39]
-viewport_path = NodePath("HistoryTarget")
-
 [node name="Node2D" type="Node2D"]
 
 [node name="PostProcessedScreenSprite" type="Sprite" parent="."]
@@ -968,17 +962,6 @@ render_target_update_mode = 3
 material = SubResource( 36 )
 texture = SubResource( 37 )
 centered = false
-
-[node name="DebugHSL" type="Sprite" parent="."]
-visible = false
-position = Vector2( 317.407, 242.675 )
-texture = SubResource( 38 )
-
-[node name="DebugHistory" type="Sprite" parent="."]
-visible = false
-position = Vector2( 317.407, 242.675 )
-scale = Vector2( 200, 200 )
-texture = SubResource( 39 )
 [connection signal="pressed" from="Panel/btnExcited" to="Panel/emotionColors" method="_on_btnExcited_pressed"]
 [connection signal="pressed" from="Panel/btnDelighted" to="Panel/emotionColors" method="_on_btnDelighted_pressed"]
 [connection signal="pressed" from="Panel/btnHappy" to="Panel/emotionColors" method="_on_btnHappy_pressed"]
