@@ -9,33 +9,33 @@
 [ext_resource path="res://Assets/Shaders/HistoryMC_SLMShader.shader" type="Shader" id=8]
 [ext_resource path="res://Assets/Shaders/HSLShader.shader" type="Shader" id=9]
 
-[sub_resource type="ViewportTexture" id=2]
+[sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("HSLTarget")
 
-[sub_resource type="ViewportTexture" id=3]
+[sub_resource type="ViewportTexture" id=2]
 viewport_path = NodePath("HistoryTarget")
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
 shader = ExtResource( 5 )
 shader_param/targetArousal = 4.0
 shader_param/targetValence = 4.0
 shader_param/targetGreenValue = 0.1
-shader_param/texHistory = SubResource( 3 )
-shader_param/texHSL = SubResource( 2 )
+shader_param/texHistory = SubResource( 2 )
+shader_param/texHSL = SubResource( 1 )
 
-[sub_resource type="ViewportTexture" id=5]
+[sub_resource type="ViewportTexture" id=4]
 viewport_path = NodePath("DefaultTarget")
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Sprite
 
 onready var emotionUI = get_parent().get_node(\"Panel/emotionColors\")
 
-var MAX_PIXEM_AROUSAL = 9.383 # 9.383
-var MAX_PIXEM_VALENCE = 15.133 # 15.133
-var MIN_PIXEM_AROUSAL = 4.055 # 4.055
-var MIN_PIXEM_VALENCE = 3.109 # 3.109
+var MAX_PIXEM_AROUSAL = 8
+var MAX_PIXEM_VALENCE = 8
+var MIN_PIXEM_AROUSAL = 0
+var MIN_PIXEM_VALENCE = 0
 
 func _ready():
 	emotionUI.connect(\"_on_emotion_pointer_change\", self, \"onEmotionPointerChanged\")
@@ -56,7 +56,7 @@ func circumplexEmotionToPixemEmotion(circumEmotion):
 	return copyEmo
 "
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Sprite
 
 onready var circle = get_node(\"circle\")
@@ -217,7 +217,7 @@ func emit_emotion_change():
 	pass
 "
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=7]
 script/source = "extends Label
 
 const TIMER_LIMIT = 1.0
@@ -230,37 +230,37 @@ func _process(delta):
 		text = str(Engine.get_frames_per_second())
 "
 
-[sub_resource type="ViewportTexture" id=30]
+[sub_resource type="ViewportTexture" id=8]
 viewport_path = NodePath("HSLTarget")
 
-[sub_resource type="ShaderMaterial" id=31]
+[sub_resource type="ShaderMaterial" id=9]
 resource_local_to_scene = true
 shader = ExtResource( 7 )
 shader_param/screenSize = Vector2( 640, 480 )
-shader_param/texHSL = SubResource( 30 )
+shader_param/texHSL = SubResource( 8 )
 
-[sub_resource type="ViewportTexture" id=33]
+[sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("HSLTarget")
 
-[sub_resource type="ShaderMaterial" id=34]
+[sub_resource type="ShaderMaterial" id=11]
 resource_local_to_scene = true
 shader = ExtResource( 8 )
 shader_param/screenSize = Vector2( 640, 480 )
-shader_param/texHSL = SubResource( 33 )
+shader_param/texHSL = SubResource( 10 )
 
-[sub_resource type="ShaderMaterial" id=36]
+[sub_resource type="ShaderMaterial" id=12]
 shader = ExtResource( 9 )
 
-[sub_resource type="ViewportTexture" id=37]
+[sub_resource type="ViewportTexture" id=13]
 viewport_path = NodePath("DefaultTarget")
 
 [node name="Node2D" type="Node2D"]
 
 [node name="PostProcessedScreenSprite" type="Sprite" parent="."]
-material = SubResource( 4 )
-texture = SubResource( 5 )
+material = SubResource( 3 )
+texture = SubResource( 4 )
 centered = false
-script = SubResource( 6 )
+script = SubResource( 5 )
 
 [node name="Panel" type="Panel" parent="."]
 margin_left = 423.122
@@ -274,7 +274,7 @@ __meta__ = {
 position = Vector2( 109.669, 144.249 )
 scale = Vector2( 0.264802, 0.264802 )
 texture = ExtResource( 6 )
-script = SubResource( 7 )
+script = SubResource( 6 )
 
 [node name="circle" type="Sprite" parent="Panel/emotionColors"]
 scale = Vector2( 0.0201627, 0.0201627 )
@@ -432,7 +432,7 @@ margin_bottom = 40.8787
 text = "0"
 align = 1
 valign = 1
-script = SubResource( 8 )
+script = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -465,12 +465,12 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="HRBGY" type="Sprite" parent="HistoryTarget"]
-material = SubResource( 31 )
+material = SubResource( 9 )
 position = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 
 [node name="HMC_SLM" type="Sprite" parent="HistoryTarget"]
-material = SubResource( 34 )
+material = SubResource( 11 )
 position = Vector2( 2, 1 )
 texture = ExtResource( 3 )
 
@@ -481,8 +481,8 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="DefaultScreen" type="Sprite" parent="HSLTarget"]
-material = SubResource( 36 )
-texture = SubResource( 37 )
+material = SubResource( 12 )
+texture = SubResource( 13 )
 centered = false
 [connection signal="pressed" from="Panel/btnExcited" to="Panel/emotionColors" method="_on_btnExcited_pressed"]
 [connection signal="pressed" from="Panel/btnDelighted" to="Panel/emotionColors" method="_on_btnDelighted_pressed"]
